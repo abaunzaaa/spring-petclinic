@@ -1,25 +1,25 @@
 pipeline {
-    agent none
-    stages {
+  agent none
+  stages {
 
-        stage('Maven Install') {
-            agent {
-                docker {
-                    image 'maven:3.9-eclipse-temurin-25'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh 'mvn clean install'
-            }
+    stage('Maven Install') {
+      agent {
+        docker {
+          image 'maven:3.9-eclipse-temurin-25'
+          reuseNode true
         }
-
-        stage('Docker Build') {
-            agent any
-            steps {
-                sh 'docker build -t aaabaunza/spring-petclinic:latest .'
-            }
-        }
-
+      }
+      steps {
+        sh 'mvn clean install'
+      }
     }
+
+    stage('Docker Build') {
+      agent any
+      steps {
+        sh 'docker build -t aaabaunza/spring-petclinic:latest .'
+      }
+    }
+
+  }
 }
