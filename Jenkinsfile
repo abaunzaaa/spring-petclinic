@@ -1,4 +1,4 @@
-}}pipeline {
+pipeline {
   agent none
   stages {
 
@@ -17,6 +17,7 @@
     stage('Docker Build') {
       agent any
       steps {
+        echo 'Construyendo imagen Docker...'
         sh 'docker build -t aaabaunza/spring-petclinic:latest .'
       }
     }
@@ -34,5 +35,6 @@
         '''
       }
     }
+
   }
 }
