@@ -1,4 +1,4 @@
-}}pipeline {
+pipeline {
   agent none
   stages {
 
@@ -17,6 +17,7 @@
     stage('Docker Build') {
       agent any
       steps {
+        echo 'Construyendo imagen Docker...'
         sh 'docker build -t aaabaunza/spring-petclinic:latest .'
       }
     }
@@ -29,10 +30,11 @@
       steps {
         echo 'Iniciando sesión en Docker Hub...'
         sh '''
-          echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+          echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u aaabaunza --password-stdin
           docker push aaabaunza/spring-petclinic:latest
         '''
       }
     }
+
   }
 }
